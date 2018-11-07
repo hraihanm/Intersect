@@ -32,6 +32,7 @@ int main()
             gF.canny();
             //Cari garis
             gF.HLP();
+            gF.cekGaris();
             if (waitKey(10) == 27)
                 break;
         }

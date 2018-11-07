@@ -124,18 +124,22 @@ void goalFinder::HLP()
         p2.y = cvRound(y0 - 1000 * (a));
 
 
-        grad[i] = ((double)p1.y-(double)p2.y)/((double)p1.x-(double)p2.x);  //Gradien garis ke-i (y = mx+c)
-        cts[i]  = (double)p1.y - (double)p1.x * grad[i];                    //konstanta garis ke-i
+        grad[i] = ((double)p1.y-(double)p2.y)/((double)p1.x-(double)p2.x);  //Gradien (m) garis ke-i    (y = mx+c)
+        cts[i]  = (double)p1.y - (double)p1.x * grad[i];                    //konstanta (c) garis ke-i
 
         cout << " grad[" << i << "] = " << setprecision(3) << fixed << grad[i] << endl;
 
         line(this->hasilHLT, p1, p2, Scalar(0, 0, 255), 1);
 
-        for(size_t j = i-1; j <= 0; j--){
+        for(int j = i-1; j >= 0; j--){
 
           Point intersect;  //Koordinat titik potong
 
-          if (abs(atan(grad[i])-atan(grad[j])) > 0.1){  //Agar garis dengan yang gradiennya mirip tidak dicek titik potingnya
+          cout << " hello the " << j << endl;
+
+          if (intersect_num>= 1000) break;
+
+          if (abs(atan(grad[i])-atan(grad[j])) > 0.01){  //Agar garis dengan yang gradiennya mirip tidak dicek titik potingnya
               intersect.x = -1 * (cts[i]-cts[j])/(grad[i]-grad[j]);
               intersect.y = (cts[i]*grad[j] - cts[j]*grad[i])/(grad[j]-grad[i]);
               intersect_num++;
